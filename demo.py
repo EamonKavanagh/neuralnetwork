@@ -8,7 +8,7 @@ from Network import Network
 method = str(sys.argv[1])
 
 print "Reading data"
-data = np.loadtxt("train.csv", delimiter=",", skiprows=1)
+data = np.loadtxt("train.csv", delimiter=",")
 print "Data loaded"
 numData = 10000
 digits = np.asarray([x[0] for x in data[:numData]])
