@@ -20,6 +20,7 @@ numHidden = 100
 n = Network(pixels, digits, numHidden, testPixels, testDigits)
 numIter = 30
 alpha = .5
+gamma = .5
 beta = 1.1
 delta = .01
 eta = 2
@@ -31,4 +32,4 @@ if method == 'GD':
 elif method =='ID':
     n.trainNetwork('ID', numIter, alpha)
 else:
-    n.trainNetwork('HD', numIter, alpha, beta, delta, eta, eps, nhat, batchSize)
+    n.trainNetwork('HD', numIter, gamma, beta, delta, eta, eps, nhat, batchSize)

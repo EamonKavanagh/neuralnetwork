@@ -7,30 +7,34 @@ from utils import calcAccuracy
 from utils import stepSize
 
 def gradDescent(Network, numIter, alpha):
-    for _ in range(numIter):
+    j = 0
+    while calcAccuracy(Network) < .95 and j < numIter:
+        j += 1
         prop.calcDeriv(Network)
         Network.inputWeight -= alpha*Network.inputDeriv
         Network.hiddenWeight -= alpha*Network.hiddenDeriv
-        print "Training set accuracy"
-        print calcAccuracy(Network)
+        print "Training set accuracy: %.3f" %calcAccuracy(Network)
     
 def incrDescent(Network, numIter, alpha):
-    for _ in range(numIter):
+    j = 0
+    while calcAccuracy(Network) < .95 and j < numIter:
+        j += 1
         randvec = range(Network.m)
         shuffle(randvec)
         for i in randvec:
             prop.calcDeriv(Network, Network.train[i], i)
             Network.inputWeight -= alpha*Network.inputDeriv
             Network.hiddenWeight -= alpha*Network.hiddenDeriv
-        print "Training set accuracy"
-        print calcAccuracy(Network)
+        print "Training set accuracy: %.3f" %calcAccuracy(Network)
     
 def hybrDescent(Network, numIter, gamma, beta, delta, eta, eps, nhat, batchSize):
+    j = 0
     mu = 0
     lastUpdate = 0
     numBatches = Network.m/batchSize
     alpha = stepSize(mu, gamma, eta)
-    for _ in range(numIter):
+    while calcAccuracy(Network) < .95 and j < numIter:
+        j += 1
         randvec = range(Network.m)
         shuffle(randvec)
         oldInputWeight = Network.inputWeight.copy()
@@ -56,5 +60,4 @@ def hybrDescent(Network, numIter, gamma, beta, delta, eta, eps, nhat, batchSize)
             mu = beta*mu + delta
             alpha = stepSize(mu, gamma, eta)
             lastUpdate = 0
-        print "Training set accuracy"
-        print calcAccuracy(Network)
+        print "Training set accuracy: %.3f" %calcAccuracy(Network)
